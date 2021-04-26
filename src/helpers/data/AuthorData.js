@@ -23,4 +23,4 @@ const addAuthor = (obj) => new Promise((resolve, reject) => {
     }).catch((error) => reject(error));
 });
 
-export default addAuthor;
+export { getAuthors, addAuthor };
