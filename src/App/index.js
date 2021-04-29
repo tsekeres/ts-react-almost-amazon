@@ -1,30 +1,26 @@
 import React, { useEffect, useState } from 'react';
-import AuthorCard from '../components/AuthorCard';
+import { BrowserRouter as Router } from 'react-router-dom';
+import Navbar from '../components/NavBar';
 import { getAuthors } from '../helpers/data/AuthorData';
-import './App.scss';
-import AuthorForm from '../AuthorForm';
+import Routes from '../helpers/Routes';
 
 function App() {
   const [authors, setAuthors] = useState([]);
 
   useEffect(() => {
-    getAuthors().then((response) => setAuthors(response));
+    getAuthors().then(setAuthors);
   }, []);
 
   return (
-    <div className="App">
-      <AuthorForm formTitle='Author Card' />
-      <hr />
-      {authors.map((authorInfo) => (
-        <AuthorCard
-          key={authorInfo.firebaseKey}
-          email={authorInfo.email}
-          firstName={authorInfo.firstName}
-          lastName={authorInfo.lastName}
-          handleClick={() => console.warn(`${authorInfo.firstName}`)}
+    <>
+      <Router>
+        <Navbar />
+        <Routes
+          authors={authors}
+          setAuthors={setAuthors}
         />
-      ))}
-    </div>
+      </Router>
+    </>
   );
 }
 
